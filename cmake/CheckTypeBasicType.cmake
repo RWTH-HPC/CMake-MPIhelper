@@ -48,7 +48,7 @@ function (CHECK_TYPE_BASIC_TYPE type btype var)
 		check_type_size(${type} "${type}_SIZE")
 
 		# return function, if TYPE does not exist
-		if (${${type}_SIZE} GREATER 0)
+		if ("${${type}_SIZE}" GREATER 0)
 			# lookup an suitable basic type
 			if ((${btype} STREQUAL "uint") OR (${btype} STREQUAL "int"))
 				math(EXPR x "${${type}_SIZE} * 8")
