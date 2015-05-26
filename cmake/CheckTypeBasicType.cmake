@@ -51,8 +51,8 @@ function (CHECK_TYPE_BASIC_TYPE type btype var)
 		if ("${${type}_SIZE}" GREATER 0)
 			# lookup an suitable basic type
 			if ((${btype} STREQUAL "uint") OR (${btype} STREQUAL "int"))
-				math(EXPR x "${${type}_SIZE} * 8")
-				set(USE_TYPE "${btype}${x}_t")
+				math(EXPR "bsize" "${${type}_SIZE} * 8")
+				set(USE_TYPE "${btype}${bsize}_t")
 			endif ()
 
 
