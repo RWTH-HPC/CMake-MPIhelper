@@ -8,21 +8,23 @@
 # See the file LICENSE.txt in the package base directory for details
 
 
-include(CheckSymbolExists)
+include(CheckFunctionExists)
 
 
-## \brief Wrapper for check_symbol_exists to test \p symbol in MPI environment.
+## \brief Wrapper for check_function_exists to test \p function in MPI
+#   environment.
 #
-# \details Sets MPI environment and calls check_symbol_exists for \p symbol.
+# \details Sets MPI environment and calls check_function_exists for \p function
+#   and P${function}.
 #
 #
-# \param symbol Symbol to test.
+# \param function Function to test.
 # \param variable Variable to be set
 #
-# \return If \p symbol was found, \p variable will be set true. In any other
-#   case \p variable will become false.
+# \return If \p function and P${function} were found, \p variable will be set
+#   true. In any other case \p variable will become false.
 #
-function(CHECK_MPI_SYMBOL_EXISTS symbol variable)
+function(CHECK_MPI_FUNCTION_EXISTS function variable)
 	# Note: a check against CMake cache is not needed in this function, thus all
 	# called functions implement such a check.
 
@@ -37,10 +39,14 @@ function(CHECK_MPI_SYMBOL_EXISTS symbol variable)
 		set(CMAKE_REQUIRED_LIBRARIES "${MPI_C_LIBRARIES}")
 
 		# check for symbol
-		check_symbol_exists(${symbol} "mpi.h" ${variable})
-		return()
+		check_function_exists(${function} __HAVE_${function})
+		check_function_exists(P${function} __HAVE_P${function})
+		if (__HAVE_${function} AND __HAVE_P${function})
+			set(${variable} true)
+			return()
+		endif ()
 	endif ()
 
 	# set variable to false, if MPI was not found
 	set(${variable} false)
-endfunction(CHECK_MPI_SYMBOL_EXISTS)
+endfunction(CHECK_MPI_FUNCTION_EXISTS)
