@@ -19,7 +19,7 @@ include(CheckFunctionExists)
 #
 #
 # \param function Function to test.
-# \param variable Variable to be set
+# \param variable Variable to be set, if function exists.
 #
 # \return If \p function and P${function} were found, \p variable will be set
 #   true. In any other case \p variable will become false.

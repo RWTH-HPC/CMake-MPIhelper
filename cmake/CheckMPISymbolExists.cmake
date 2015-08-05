@@ -17,7 +17,7 @@ include(CheckSymbolExists)
 #
 #
 # \param symbol Symbol to test.
-# \param variable Variable to be set
+# \param variable Variable to be set, if symbol exists.
 #
 # \return If \p symbol was found, \p variable will be set true. In any other
 #   case \p variable will become false.
