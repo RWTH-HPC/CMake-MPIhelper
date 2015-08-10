@@ -42,11 +42,11 @@ function(CHECK_MPI_FUNCTION_EXISTS function variable)
 		check_function_exists(${function} __HAVE_${function})
 		check_function_exists(P${function} __HAVE_P${function})
 		if (__HAVE_${function} AND __HAVE_P${function})
-			set(${variable} true)
+			set(${variable} 1 CACHE INTERNAL "Have MPI function ${function}")
 			return()
 		endif ()
 	endif ()
 
 	# set variable to false, if MPI was not found
-	set(${variable} false)
+	set(${variable} 0)
 endfunction(CHECK_MPI_FUNCTION_EXISTS)
