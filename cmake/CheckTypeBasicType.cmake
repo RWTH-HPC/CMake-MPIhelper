@@ -40,43 +40,41 @@ include(CheckTypeSize)
 #
 function (CHECK_TYPE_BASIC_TYPE type btype var)
 	if(NOT DEFINED "${var}")
-		if(NOT CMAKE_REQUIRED_QUIET)
-			message(STATUS "Looking for type of ${type}")
-		endif()
-
 		# get size of TYPE
 		check_type_size(${type} "${type}_SIZE")
 
 		# return function, if TYPE does not exist
-		if ("${${type}_SIZE}" GREATER 0)
-			# lookup an suitable basic type
-			if ((${btype} STREQUAL "uint") OR (${btype} STREQUAL "int"))
-				math(EXPR "bsize" "${${type}_SIZE} * 8")
-				set(USE_TYPE "${btype}${bsize}_t")
+		if ("${${type}_SIZE}" EQUAL 0)
+			return()
+		endif ()
+
+
+		# lookup an suitable basic type
+		if ((${btype} STREQUAL "uint") OR (${btype} STREQUAL "int"))
+			math(EXPR "bsize" "${${type}_SIZE} * 8")
+			set(USE_TYPE "${btype}${bsize}_t")
+		endif ()
+
+		# clean environment
+		unset(CMAKE_EXTRA_INCLUDE_FILES)
+
+		# does selected type exist?
+		check_type_size(${USE_TYPE} "${USE_TYPE}_SIZE")
+		if(NOT CMAKE_REQUIRED_QUIET)
+			message(STATUS "Looking for basic type of ${type}")
+		endif()
+		if (${${USE_TYPE}_SIZE} GREATER 0)
+			# does length of selected type match the original size?
+			if (${${USE_TYPE}_SIZE} EQUAL ${${type}_SIZE})
+				set(${var} "${USE_TYPE}" CACHE INTERNAL
+					"CHECK_TYPE_BASIC_TYPE: basic type of ${type}")
+
+				if(NOT CMAKE_REQUIRED_QUIET)
+					message(STATUS "Looking for basic type of ${type} - done")
+				endif()
+
+				return()
 			endif ()
-
-
-			# save current environment and clean it
-			set(CMAKE_EXTRA_INCLUDE_FILES_TMP ${CMAKE_EXTRA_INCLUDE_FILES})
-			set(CMAKE_EXTRA_INCLUDE_FILES)
-
-			# does selected type exist?
-			check_type_size(${USE_TYPE} "${type}_SIZE_N")
-			if (${${type}_SIZE_N} GREATER 0)
-				# does length of selected type match the original size?
-				if (${${type}_SIZE_N} EQUAL ${${type}_SIZE})
-					set(${var} "${USE_TYPE}" CACHE INTERNAL
-						"CHECK_TYPE_BASIC_TYPE: basic type of ${type}")
-
-					if(NOT CMAKE_REQUIRED_QUIET)
-						message(STATUS "Looking for type of ${type} - done")
-					endif()
-				endif ()
-			endif ()
-
-			# restore environment
-			set(CMAKE_EXTRA_INCLUDE_FILES ${CMAKE_EXTRA_INCLUDE_FILES_TMP})
-			set(CMAKE_EXTRA_INCLUDE_FILES_TMP)
 		endif ()
 
 		# set VARIABLE as empty, if not already done
@@ -84,7 +82,7 @@ function (CHECK_TYPE_BASIC_TYPE type btype var)
 			set(${var} "" CACHE INTERNAL "CHECK_TYPE_BASIC_TYPE: basic type of ${type}")
 
 			if(NOT CMAKE_REQUIRED_QUIET)
-				message(STATUS "Looking for type of ${type} - failed")
+				message(STATUS "Looking for basic type of ${type} - failed")
 			endif()
 		endif ()
 	endif(NOT DEFINED "${var}")
