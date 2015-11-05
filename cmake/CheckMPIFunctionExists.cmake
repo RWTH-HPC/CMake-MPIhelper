@@ -35,12 +35,14 @@ function(CHECK_MPI_FUNCTION_EXISTS function variable)
 		set(CMAKE_REQUIRED_INCLUDES "${MPI_C_INCLUDE_PATH}")
 		set(CMAKE_REQUIRED_LIBRARIES "${MPI_C_LIBRARIES}")
 
-		# check for symbol
+		# check for function
 		check_function_exists(${function} __HAVE_${function})
-		check_function_exists(P${function} __HAVE_P${function})
-		if (__HAVE_${function} AND __HAVE_P${function})
-			set(${variable} 1 CACHE INTERNAL "Have MPI function ${function}")
-			return()
+		if (__HAVE_${function})
+			check_function_exists(P${function} __HAVE_P${function})
+			if (__HAVE_P${function})
+				set(${variable} 1 CACHE INTERNAL "Have MPI function ${function}")
+				return()
+			endif ()
 		endif ()
 	endif ()
 
