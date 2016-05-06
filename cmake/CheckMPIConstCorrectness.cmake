@@ -36,11 +36,17 @@ function(CHECK_MPI_CONST_CORRECTNESS variable)
 
 		# generate test source
 		set (TEST_SOURCE "#include <mpi.h>
+
+			/* This is the new declaration of MPI_Graph_create with const
+			 * arguments. If it is defined without const in mpi.h, this test
+			 * will crash. */
+			int MPI_Graph_create(MPI_Comm comm_old, int nnodes,
+				const int index[], const int edges[], int reorder,
+				MPI_Comm *comm_graph);
+
 			int
 			main(int argc, char **argv)
 			{
-				const int i = 0;
-				MPI_Graph_create(MPI_COMM_WORLD, 0, &i, &i, 0, NULL);
 				return 0;
 			}
 		")
