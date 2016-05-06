@@ -33,7 +33,7 @@ endif ()
 ```
 
 
-### check_fortran_mpi_function_exists(symbol, variable)
+### check_fortran_mpi_function_exists(function, variable)
 
 Checks whether fortran MPI function ```function``` exists and stores result in ```variable```.
 
@@ -89,6 +89,21 @@ find_package(CheckTypeBasicType)
 
 check_type_basic_type(MPI_Fint uint MPI_FINT_TYPE)
 # MPI_FINT_TYPE is e.g. uint64_t
+```
+
+
+### check_mpi_const_correctness(variable)
+
+Checks wheter MPI calls use const arguments. Result will be stored in ```variable```.
+
+Example:
+```cmake
+find_package(CheckMPIConstCorrectness)
+
+check_mpi_const_correctness(HAVE_MPI_CONST_CORRECTNESS)
+if (HAVE_MPI_CONST_CORRECTNESS)
+	# found HAVE_MPI_CONST_CORRECTNESS
+endif ()
 ```
 
 
