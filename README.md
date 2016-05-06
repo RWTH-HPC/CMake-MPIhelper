@@ -33,6 +33,21 @@ endif ()
 ```
 
 
+### check_fortran_mpi_function_exists(symbol, variable)
+
+Checks whether fortran MPI function ```function``` exists and stores result in ```variable```.
+
+Example:
+```cmake
+find_package(CheckFortranMPIFunctionExists)
+
+check_fortran_mpi_function_exists(MPI_INIT_THREAD, HAVE_MPI_INIT_THREAD)
+if (HAVE_MPI_INIT_THREAD)
+	# found HAVE_MPI_INIT_THREAD
+endif ()
+```
+
+
 ### check_mpi_function_exists(function, variable)
 
 Checks whether C MPI function ```function``` exists and stores result in ```variable```.
