@@ -5,6 +5,10 @@
 #
 # See the file LICENSE in the package base directory for details.
 
+# Set the minimum required CMake version.
+cmake_minimum_required(VERSION 2.6)
+
+
 include(CheckFunctionExists)
 
 

@@ -1,5 +1,9 @@
 # CMake-MPIhelper
 
+[![](https://img.shields.io/github/issues-raw/RWTH-HPC/CMake-MPIhelper.svg?style=flat-square)](https://github.com/RWTH-HPC/CMake-MPIhelper/issues)
+[![](http://img.shields.io/badge/license-3--clause_BSD-blue.svg?style=flat-square)](LICENSE)
+![CMake 2.6 required](http://img.shields.io/badge/CMake_required-2.6-lightgrey.svg?style=flat-square)
+
 CMake modules to check for MPI functions.
 
 
@@ -94,7 +98,7 @@ check_type_basic_type(MPI_Fint uint MPI_FINT_TYPE)
 
 ## Copyright
 
-Copyright (c) 2015 RWTH Aachen University, Federal Republic of Germany.
+Copyright &copy; 2015-2017 RWTH Aachen University, Federal Republic of Germany.
 
 See the file [LICENSE](LICENSE) in the package base directory for details.
 
