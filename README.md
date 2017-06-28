@@ -92,21 +92,6 @@ check_type_basic_type(MPI_Fint uint MPI_FINT_TYPE)
 ```
 
 
-### check_mpi_const_correctness(variable)
-
-Checks wheter MPI calls use const arguments. Result will be stored in ```variable```.
-
-Example:
-```cmake
-find_package(CheckMPIConstCorrectness)
-
-check_mpi_const_correctness(HAVE_MPI_CONST_CORRECTNESS)
-if (HAVE_MPI_CONST_CORRECTNESS)
-	# found HAVE_MPI_CONST_CORRECTNESS
-endif ()
-```
-
-
 ## Copyright
 
 Copyright (c) 2015 RWTH Aachen University, Federal Republic of Germany.
