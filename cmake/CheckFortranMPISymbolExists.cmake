@@ -5,6 +5,15 @@
 #
 # See the file LICENSE in the package base directory for details.
 
+# Set the minimum required CMake version.
+#
+# Note: CheckFortranSourceCompiles was introduced in CMake 3.0, but this CMake
+#       module shipps these files, too, so this module may be used with earlier
+#       versions of CMake.
+#
+cmake_minimum_required(VERSION 2.6)
+
+
 include(CheckFortranSourceCompiles)
 
 
