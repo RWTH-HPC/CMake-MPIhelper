@@ -82,6 +82,21 @@ endif ()
 ```
 
 
+### check_mpi_symbol_is_rvalue(symbol, variable)
+
+Checks whether C MPI symbol ```symbol``` exists, doesn't give a compiler error when used and stores result in ```variable```.
+
+Example:
+```cmake
+find_package(CheckMPISymbolIsRvalue)
+
+check_mpi_symbol_is_rvalue(MPI_UB, HAVE_MPI_UB)
+if (HAVE_MPI_UB)
+	# can use MPI_UB
+endif ()
+```
+
+
 ### check_type_basic_type(type, basic_type, variable)
 
 Sets variable to a valid basic C type derived from basic_type dependent of the
@@ -98,7 +113,7 @@ check_type_basic_type(MPI_Fint uint MPI_FINT_TYPE)
 
 ## Copyright
 
-Copyright &copy; 2015-2017 RWTH Aachen University, Federal Republic of Germany.
+Copyright &copy; 2015-2021 RWTH Aachen University, Federal Republic of Germany.
 
 See the file [LICENSE](LICENSE) in the package base directory for details.
 
