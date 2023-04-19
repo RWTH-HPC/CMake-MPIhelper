@@ -54,7 +54,7 @@ function(CHECK_MPI_TYPE_EXISTS type variable)
 		set(CMAKE_REQUIRED_FLAGS "${MPI_C_COMPILE_FLAGS}")
 		set(CMAKE_REQUIRED_DEFINITIONS "")
 		set(CMAKE_REQUIRED_INCLUDES "${MPI_C_INCLUDE_PATH}")
-        set(CMAKE_EXTRA_INCLUDE_FILES "${MPI_C_INCLUDE_PATH}/mpi.h")
+		set(CMAKE_EXTRA_INCLUDE_FILES "mpi.h")
 		set(CMAKE_REQUIRED_LIBRARIES "${MPI_C_LIBRARIES}")
 
         check_type_size(${type} ${variable})
