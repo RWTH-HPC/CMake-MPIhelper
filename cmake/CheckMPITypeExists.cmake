@@ -7,17 +7,9 @@
 
 # Set the minimum required CMake version.
 cmake_minimum_required(VERSION 3.13.4...3.27.4)
-IF (POLICY CMP0075)
-    CMAKE_POLICY(PUSH)
-    CMAKE_POLICY(SET CMP0075 NEW)
-ENDIF ()
+
 
 include(CheckTypeSize)
-
-IF (POLICY CMP0075)
-    CMAKE_POLICY(POP)
-ENDIF ()
-
 
 ## \brief Wrapper for check_type_size to test whether an MPI \p type exists
 ## that is not found through check_symbol_exists (e.g. typedefs or enums).
@@ -36,17 +28,7 @@ function(CHECK_MPI_TYPE_EXISTS type variable)
 	# called functions implement such a check.
 
 	# search for MPI environment
-	IF (POLICY CMP0074)
-		CMAKE_POLICY(PUSH)
-		#if MPI_ROOT is set, use it for finding MPI
-		CMAKE_POLICY(SET CMP0074 NEW)
-	ENDIF ()
-
 	find_package(MPI)
-
-	IF (POLICY CMP0074)
-		CMAKE_POLICY(POP)
-	ENDIF ()
 
 	if (MPI_C_FOUND)
 		# check for symbol
@@ -58,18 +40,11 @@ function(CHECK_MPI_TYPE_EXISTS type variable)
 		set(CMAKE_REQUIRED_LIBRARIES "${MPI_C_LIBRARIES}")
 
         check_type_size(${type} ${variable})
-        IF (POLICY CMP0054)
-            CMAKE_POLICY(PUSH)
-            CMAKE_POLICY(SET CMP0054 NEW)
-        ENDIF ()
         if ("${variable}" STREQUAL "")
             set (${variable} FALSE)
         else ()
             set (${variable} TRUE)
         endif ()
-        IF (POLICY CMP0054)
-            CMAKE_POLICY(POP)
-        ENDIF ()
 
 		return()
 	endif ()

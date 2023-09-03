@@ -30,17 +30,7 @@ function(CHECK_MPI_FUNCTION_EXISTS function variable)
 	# called functions implement such a check.
 
 	# search for MPI environment
-	IF (POLICY CMP0074)
-		CMAKE_POLICY(PUSH)
-		#if MPI_ROOT is set, use it for finding MPI
-		CMAKE_POLICY(SET CMP0074 NEW)
-	ENDIF ()
-
 	find_package(MPI)
-
-	IF (POLICY CMP0074)
-		CMAKE_POLICY(POP)
-	ENDIF ()
 
 	if (MPI_C_FOUND)
 		# set environment
