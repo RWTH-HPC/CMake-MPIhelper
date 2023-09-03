@@ -11,7 +11,7 @@
 #       module shipps these files, too, so this module may be used with earlier
 #       versions of CMake.
 #
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.13.4...3.27.4)
 
 
 include(CheckFortranSourceCompiles)
